@@ -1,0 +1,39 @@
+'''values: ID, Name, Sex, Age, Height, Weight, Team, NOC, Games, Year, Season,
+City, Sport, Event, Medal, region, notes
+databases:
+athlete names with their ids
+sports with their ids
+events linked to sports ids
+athletes linked to sport events
+
+athlete table: athlete ID, name, sex,
+games table: games ID, Games, Year, Season, City
+Sports table: Event ID, sport, events
+Team table: Team, NOC, region, notes
+athlete_event table: athlete ID, games ID, event ID, medal
+athletes_games table: athlete ID, games ID, age, height, weight'''
+
+CREATE TABLE csvathlete_events (
+    id text,
+    name text,
+    sex text,
+    age text,
+    height text,
+    weight text,
+    team text,
+    NOC text,
+    games text,
+    year text,
+    season text,
+    city text,
+    sport text,
+    event text,
+    medal text);
+
+CREATE TABLE noc_regions (
+    NOC text,
+    region text,
+    notes text);
+
+\copy athletes from 'athletes.csv' DELIMITER ',' CSV NULL AS 'NULL'
+\copy athletes from 'athletes.csv' DELIMITER ',' CSV NULL AS 'NULL'
