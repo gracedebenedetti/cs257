@@ -23,7 +23,8 @@ CREATE TABLE athlete_sports_events (
     athletes_id INT,
     games_id INT,
     sports_id INT,
-    medal text);
+    medal text,
+    NOC text);
 
 CREATE TABLE athletes_games (
     athletes_id INT,

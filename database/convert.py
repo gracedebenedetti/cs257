@@ -19,13 +19,11 @@ def create_data(reader, noc_regions_reader):
     noc_regions = {}
     for row in noc_regions_reader:
         if len(row) > 1:
+            NOC = row[0]
+            region = row[1]
+            noc_regions[NOC] = region
             #teams
-            teams_id = row[0]
-            if teams_id not in teams:
-                one_team = {}
-                one_team['id'] = len(teams) + 1
-                one_team['region'] = row[1]
-                teams[teams_id] = one_team
+    i=0
     for row in reader:
         if len(row) > 1:
             # athlete
@@ -53,6 +51,14 @@ def create_data(reader, noc_regions_reader):
                 one_sport['sport'] = row[12]
                 sports[sports_key] = one_sport
             sports_id = sports[sports_key]['id']
+            #teams
+            teams_keys = noc_regions.keys()
+            for key in teams_keys:
+                if key not in teams:
+                    one_team = {}
+                    one_team['id'] = len(teams) + 1
+                    one_team['region'] = noc_regions[key]
+                    teams[key] = one_team
             #athlete_sports_events
             athlete_sports_events_key = (athletes_id, games_id, sports_id)
             if athlete_sports_events_key not in athlete_sports_events:
@@ -61,8 +67,9 @@ def create_data(reader, noc_regions_reader):
                     medal = "NULL"
                 else:
                     medal = row[14]
-                one_athlete_event['medal'] = medal
-                athlete_sports_events[athlete_sports_events_key] = one_athlete_event
+                    one_athlete_event['medal'] = medal
+                    one_athlete_event['NOC'] = row[7]
+                    athlete_sports_events[athlete_sports_events_key] = one_athlete_event
             # athletes_games
             athlete_games_key = (athletes_id, games_id)
             if athlete_games_key not in athlete_games:
@@ -107,7 +114,8 @@ def write_athlete_sports_events_csv(data_dictionary):
         writer = csv.writer(f)
         for (athletes_id, games_id, sports_id) in data_dictionary:
             medal = data_dictionary[(athletes_id, games_id, sports_id)]['medal']
-            writer.writerow([athletes_id, games_id, sports_id, medal])
+            NOC = data_dictionary[(athletes_id, games_id, sports_id)]['NOC']
+            writer.writerow([athletes_id, games_id, sports_id, medal, NOC])
 
 def write_athlete_games_csv(data_dictionary):
     with open("athlete_games.csv", 'w') as f:

@@ -22,9 +22,8 @@ ORDER BY games.year;
 
 '''List all the NOCs and the number of gold medals they have won, in decreasing order of the number of gold medals.'''
 SELECT teams.noc, COUNT(athlete_sports_events.medal)
-FROM teams, athlete_sports_events, athletes_games
+FROM athlete_sports_events, teams
 WHERE athlete_sports_events.medal = 'Gold'
-GROUP BY teams.NOC
+AND athlete_sports_events.NOC = teams.NOC
+GROUP BY teams.noc
 ORDER BY COUNT(athlete_sports_events.medal) DESC;
-
-AND teams.region = athletes_games.team
