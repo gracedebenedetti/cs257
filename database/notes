@@ -37,3 +37,146 @@ CREATE TABLE noc_regions (
 
 \copy athletes from 'athletes.csv' DELIMITER ',' CSV NULL AS 'NULL'
 \copy athletes from 'athletes.csv' DELIMITER ',' CSV NULL AS 'NULL'
+
+
+
+def create_athletes_data(reader):
+    athletes = []
+    for row in reader:
+        if len(row) > 1:
+            one_athlete = []
+            one_athlete.append(row[0])
+            #row[1].split( )
+            #print(row[1])
+            one_athlete.append(row[1])
+            #one_athlete.append(row[1][-1])
+            one_athlete.append(row[2])
+            one_athlete.append(row[7])
+        athletes.append(one_athlete)
+    return athletes
+
+def create_games_data(reader):
+    games = []
+    id = 1
+    for row in reader:
+        if len(row) > 1 and row[8] not in games:
+            one_game = []
+            one_game.append(id)
+            one_game.append(row[8])
+            one_game.append(row[9])
+            one_game.append(row[10])
+            one_game.append(row[11])
+            id += 1
+        games.append(one_game)
+    return games
+
+def create_sports_data(reader):
+    sports = []
+    id = 1
+    for row in reader:
+        if len(row) > 1:
+            one_sport = []
+            one_sport.append(id)
+            one_sport.append(row[12])
+            one_sport.append(row[13])
+            id += 1
+        sports.append(one_sport)
+    return sports
+
+def create_teams_data(noc_regions_reader):
+    teams = []
+    id = 1
+    for row in noc_regions_reader:
+        if len(row) > 1:
+            one_team = []
+            one_team.append(id)
+            one_team.append(row[0])
+            one_team.append(row[1])
+            one_team.append(row[2])
+            id += 1
+        teams.append(one_team)
+    return teams
+
+'''def create_athlete_events_data(athletes_reader, games_reader, sports_reader, athlete_events_reader):
+    #need to read from newly created csvs
+    #one line is made up of appending from athletes, games, then athlete_events
+    athlete_events = []
+    for row in athelete_events_reader:
+        if len(row) > 1:
+            one_athlete_event = [athlete_id, games_id, age, height, weight, team]
+            one_athlete_event.insert(2, row[3])
+            one_athlete_event.insert(3, row[4])
+            one_athlete_event.insert(4, row[5])
+            one_athlete_event.insert(5, row[6])
+    for row in athletes_reader
+        athlete_events.append(one_athlete_event)
+    return athlete_events
+
+def create_athlete_games_data(athletes_reader, games_reader, athlete_events_reader):
+    athlete_games = {}
+    for row in athelete_events_reader:
+        athlete_games[athletes_id] = row[3], row[4], row[5], row[6];
+        if len(row) > 1:
+            one_athlete_event = [athlete_id, games_id, age, height, weight, team]
+            one_athlete_event.insert(2, row[3])
+            one_athlete_event.insert(3, row[4])
+            one_athlete_event.insert(4, row[5])
+            one_athlete_event.insert(5, row[6])
+
+            one_athlete
+        athlete_events.append(one_athlete_event)
+    return athlete_events
+
+def write_csv(data, title):
+    myData = data
+    myFile = open(title, "w")
+    with myFile:
+        writer = csv.writer(myFile)
+        writer.writerows(myData)'''
+
+        '''athletes = create_athletes_data(athlete_events_reader)
+        games = create_games_data(athlete_events_reader)
+        sports = create_sports_data(athlete_events_reader)
+        teams = create_teams_data(noc_regions_reader)'''
+        #athlete_events = create_athlete_events_data(athletes_reader, games_reader, sports_reader, athlete_events_reader)
+        #athlete_games = create_athlete_games_data(athletes_reader, games_reader, athlete_events_reader)
+        '''athletes_reader = create_reader('athletes.csv')
+        sports_reader = create_reader('sports.csv')
+        games_reader = create_reader('games.csv')'''
+
+        def write_csv(data, title):
+            fields = []
+            dict_data = [data]
+            myFile = open(title, 'w')
+            for (values) in games_dictionary:
+                games_id = games_dictionary[(year, season, city)]
+                writer.writerow([games_id, year, season, city])
+            with myFile:
+                writer = csv.DictWriter(myFile, fieldnames = fields)
+                for [(games, year, season, city)] in dict_data:
+                    id = games_dictionary[(games, year, season, city)]
+                    writer.writerow([id, games, year, season, city])
+
+                    '''def write_csv(data_dictionary, title, values, fields_list):
+                        file = open(title, 'w')
+                        with file:
+                            writer = csv.DictWriter(file, data_dictionary.keys())
+                            for values in data_dictionary:
+                                id = data_dictionary[values]
+                                writer.writerow(fields_list)'''
+
+                    '''def write_csv_test(data_dictionary, title, fields_list):
+                        with open(title, 'w') as csvfile:
+                            writer = csv.DictWriter(csvfile, fieldnames=fields_list)
+                            values = data_dictionary[].keys()
+                            writer.writeheader()
+                            for key in data_dictionary.keys():
+                                info = data_dictionary[key][value] for value in values
+                                writer.writerow([key] + [info])'''
+
+athletes.csv looks good
+games.csv looks good
+teams looks good
+sports looks good
+athlete_sports_events looks good
+athlete_games ids have weird string then id printed
