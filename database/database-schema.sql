@@ -34,6 +34,7 @@ CREATE TABLE athletes_games (
     weight float,
     team text);
 
+
 \copy athletes from 'athletes.csv' DELIMITER ',' CSV NULL AS 'NULL'
 \copy games from 'games.csv' DELIMITER ',' CSV NULL AS 'NULL'
 \copy sports from 'sports.csv' DELIMITER ',' CSV NULL AS 'NULL'

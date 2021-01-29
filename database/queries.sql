@@ -27,3 +27,10 @@ WHERE athlete_sports_events.medal = 'Gold'
 AND athlete_sports_events.NOC = teams.NOC
 GROUP BY teams.noc
 ORDER BY COUNT(athlete_sports_events.medal) DESC;
+
+'List all the athletes and the number of medals they have won'
+SELECT athletes.name, COUNT(athlete_sports_events.medal)
+FROM athletes, athlete_sports_events
+WHERE athletes.id = athlete_sports_events.athletes_id
+GROUP BY athletes.name
+ORDER BY COUNT(athlete_sports_events.medal) DESC;
