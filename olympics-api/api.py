@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#/usr/bin/env python3
 '''
     flask_sample.py
     Jeff Ondich, 22 April 2016
@@ -11,6 +11,10 @@ import sys
 import argparse
 import flask
 import json
+import psycopg2
+from config import user
+from config import password
+from config import database
 
 app = flask.Flask(__name__)
 
@@ -18,6 +22,23 @@ app = flask.Flask(__name__)
 def hello():
     return 'Hello, Citizen of CS257.'
 
+def get_game_from_database():
+  try:
+      connection = psycopg2.connect(database=database, user=user, password=password)    
+  except Exception as e:
+      print(e)
+      exit()
+  cursor = connection.cursor()
+  query = "SELECT * FROM games"
+  cursor.execute(query)
+  games_dictionary = {}
+  for row in cursor:
+      game_key = int(row[0])
+      game_year = int(row[1])
+      games_season = row[2]
+      game_city = row[3]
+      games_dictionary[
+ 
 @app.route('/games')
 def get_actor(last_name):
     ''' Returns the first matching actor, or an empty dictionary if there's no match. '''
