@@ -34,7 +34,7 @@ def get_game_from_database():
   games_dictionary = {}
   for row in cursor:
       one_game = {}
-      game_key = int(row[0])
+      game_key = int(row[0]) #need to fix this so the id is actually an int
       year = int(row[1])
       season = row[2]
       city = row[3]
