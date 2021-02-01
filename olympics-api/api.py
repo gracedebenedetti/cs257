@@ -42,7 +42,7 @@ def get_game_from_database():
       one_game['season'] = season
       one_game['city'] = city
       games_dictionary[game_key] = one_game
-      return games_dictionary
+  return games_dictionary
 
 @app.route('/games')
 def get_games():
