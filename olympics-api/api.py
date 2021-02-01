@@ -24,7 +24,7 @@ def hello():
 
 def get_game_from_database():
   try:
-      connection = psycopg2.connect(database=database, user=user, password=password)    
+      connection = psycopg2.connect(database=database, user=user, password=password)
   except Exception as e:
       print(e)
       exit()
@@ -33,33 +33,33 @@ def get_game_from_database():
   cursor.execute(query)
   games_dictionary = {}
   for row in cursor:
+      one_game = {}
       game_key = int(row[0])
-      game_year = int(row[1])
-      games_season = row[2]
-      game_city = row[3]
-      games_dictionary[
- 
-@app.route('/games')
-def get_actor(last_name):
-    ''' Returns the first matching actor, or an empty dictionary if there's no match. '''
-    games_dictionary = {}
-    lower_last_name = last_name.lower()
-    for actor in actors:
-        if actor['last_name'].lower().startswith(lower_last_name):
-            actor_dictionary = actor
-            break
-    return json.dumps(actor_dictionary)
+      year = int(row[1])
+      season = row[2]
+      city = row[3]
+      one_game['year'] = year
+      one_game['season'] = season
+      one_game['city'] = city
+      games_dictionary[game_key] = one_game
+      return games_dictionary
 
+@app.route('/games')
+def get_games():
+    ''' Returns list of games with their id, year, season, and city. '''
+    games_dictionary = get_game_from_database()
+    return json.dumps(games_dictionary)
+'''
 @app.route('/nocs')
 def get_movies():
-    ''' Returns the list of movies that match GET parameters:
+     Returns the list of movies that match GET parameters:
           start_year, int: reject any movie released earlier than this year
           end_year, int: reject any movie released later than this year
           genre: reject any movie whose genre does not match this genre exactly
         If a GET parameter is absent, then any movie is treated as though
         it meets the corresponding constraint. (That is, accept a movie unless
         it is explicitly rejected by a GET parameter.)
-    '''
+
     nocs_dictionary = {}
     id = flask.request.args.get('id')
     year = flask.request.args.get('year', default=0, type=int)
@@ -78,14 +78,14 @@ def get_movies():
 
 @app.route('/medalists/games/<games_id>?[noc=noc_abbreviation]')
 def get_movies():
-    ''' Returns the list of movies that match GET parameters:
+    Returns the list of movies that match GET parameters:
           start_year, int: reject any movie released earlier than this year
           end_year, int: reject any movie released later than this year
           genre: reject any movie whose genre does not match this genre exactly
         If a GET parameter is absent, then any movie is treated as though
         it meets the corresponding constraint. (That is, accept a movie unless
         it is explicitly rejected by a GET parameter.)
-    '''
+
     movie_list = []
     genre = flask.request.args.get('genre')
     start_year = flask.request.args.get('start_year', default=0, type=int)
@@ -100,6 +100,7 @@ def get_movies():
         movie_list.append(movie)
 
     return json.dumps(movie_list)
+'''
 
 @app.route('/help')
 def get_help():
