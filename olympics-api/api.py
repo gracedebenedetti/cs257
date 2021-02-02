@@ -12,9 +12,9 @@ import argparse
 import flask
 import json
 import psycopg2
-from quoc_config import user
-from quoc_config import password
-from quoc_config import database
+from config import user
+from config import password
+from config import database
 
 app = flask.Flask(__name__)
 
@@ -34,7 +34,7 @@ def get_game_from_database():
   games_list = []
   for row in cursor:
       one_game = {}
-      game_id = int(row[0]) 
+      game_id = int(row[0])
       year = int(row[1])
       season = row[2]
       city = row[3]
@@ -65,7 +65,7 @@ def get_noc_from_database():
   for row in cursor:
       one_game = {}
       team_id = row[0]
-      noc_abbreviation = row[1] 
+      noc_abbreviation = row[1]
       noc_name = row[2]
       one_game['id'] = team_id
       one_game['abbreviation'] = noc_abbreviation
@@ -87,9 +87,9 @@ def get_medalists_from_database(games_id):
       exit()
   cursor = connection.cursor()
   query = "SELECT athletes.id, athletes.name, athletes.sex, sports.sport, "
-  query += "sports.event, athlete_sports_events.medal, athlete_sports_events.games_id "
+  query += "sports.event, athlete_sports_events.medal "
   query += "FROM athletes, athlete_sports_events, sports "
-  query += f"WHERE athlete_sports_events.games_id={games_id} " 
+  query += f"WHERE athlete_sports_events.games_id={games_id} "
   query += "AND athletes.id=athlete_sports_events.athletes_id "
   query += "AND athlete_sports_events.sports_id=sports.id"
   cursor.execute(query)
@@ -102,7 +102,6 @@ def get_medalists_from_database(games_id):
       one_medalist['sport'] = row[3]
       one_medalist['event'] = row[4]
       one_medalist['medal'] = row[5]
-      one_medalist['game_id'] = row[6]
       medalists_list.append(one_medalist)
   return medalists_list
 
@@ -116,7 +115,7 @@ def get_medalists_from_database_with_noc(games_id, noc_abbreviation):
   query = "SELECT athletes.id, athletes.name, athletes.sex, sports.sport, "
   query += "sports.event, athlete_sports_events.medal "
   query += "FROM athletes, athlete_sports_events, sports "
-  query += f"WHERE athlete_sports_events.games_id={games_id} " 
+  query += f"WHERE athlete_sports_events.games_id={games_id} "
   query += "AND athletes.id=athlete_sports_events.athletes_id "
   query += f"AND noc='{noc_abbreviation}' "
   query += "AND athlete_sports_events.sports_id=sports.id"
