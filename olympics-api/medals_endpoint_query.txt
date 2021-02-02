@@ -1,0 +1,2 @@
+SELECT athletes.name, athletes.id, athletes.sex, athlete_sports_events.sport, athlete_sports_events.event, athlete_sports_events.medal FROM athletes, athlete_sports_events WHERE athlete_sports_events.games_id={game_id} AND athletes.id=athlete_sports_events.athletes_id
+

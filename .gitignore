@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#quoc_config.py
+olympics-api/quoc_config.py
