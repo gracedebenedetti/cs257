@@ -1,0 +1,49 @@
+/*
+   For use with index.html
+   Grace de Benedetti, 5 February 2021
+*/
+
+body {
+    margin: 20px;
+}
+
+#panels {
+    height: 640px;
+    width: 100%;
+}
+
+#top_panel {
+    width: 100%;
+    height: 10%;
+    float:left;
+    font-size: 30pt;
+    color: blue;
+    background-color: deepskyblue;
+}
+
+
+#side_panel {
+    width: 10%;
+    height: 92%;
+    float:left;
+    font-size: 14pt;
+    color: blue;
+    background-color: lightblue;
+}
+
+
+#body_panel {
+    width: 90%;
+    height: 92%;
+    float: left;
+    font-size: 24pt;
+    color: blue;
+    background-color: lightskyblue;
+}
+
+table, th, td {
+  border: 0.5px solid white;
+  max-width:100%;
+  white-space:nowrap;
+  font-size: 12pt;
+}
