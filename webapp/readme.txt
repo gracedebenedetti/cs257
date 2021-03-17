@@ -1,5 +1,8 @@
 AUTHORS: Nick Pandelakis and Grace de Benedetti
 
+TO RUN: in terminal: python3 app.py localhost 5000
+        in browser: http://localhost:5000/
+
 DATA: the dataset is a collection of individual terrorist attacks that occurred between 1960 and 2018.
 Each attack has specific data associated with it including location, summary, and other statistics.
 
